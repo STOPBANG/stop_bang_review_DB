@@ -17,7 +17,7 @@ module.exports = class Review extends Sequelize.Model {
         defaultValue: 0,
       },
       content: {
-        type: Sequelize.STRING(45),
+        type: Sequelize.STRING(100),
         allowNull: true,
       },
       tags: {
