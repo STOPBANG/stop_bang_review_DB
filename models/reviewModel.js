@@ -1,3 +1,5 @@
+const { tags } = require('../public/assets/tag');
+
 const Review = require('../database/models/tables/review');
 
 module.exports = {
@@ -14,6 +16,46 @@ module.exports = {
 
     return res.json({});
   },
+
+  update: async (req,res) => {
+    const body = req.body;
+    let desc = body.originDesc;
+
+    if(body.description !== "")
+			desc = body.originDesc + "\n" + body.updatedTime + "\n" + body.description;
+		
+		let tags = body.checkedTags;
+		if(body.tag !== undefined) {
+			tags += Array.isArray(body.tag)
+				? body.tag.join("")
+				: body.tag;
+		}
+
+    try {
+      const review = await Review.update(
+        {
+          rating: body.rate,
+          content: desc,
+          tags: tags
+        },
+        { where: {
+          rv_id: body.rv_id}
+        }
+      );
+  
+      return res.json(review);
+    } catch(err) {
+      console.log('[error] review DB : ', err);
+      return res.redirect('/');
+    }
+  },
+
+  findAllByReviewId: async (req, res) => {
+    const reviews = await Review.findAll({where: {id: req.params.rv_id} });
+    
+    return res.json(reviews);
+  },
+
   findAllByUserId: async (req, res) => {
     const reviews = await Review.findAll({ where: {resident_r_id: req.params.user_id} });
 
