@@ -31,23 +31,14 @@ module.exports = {
 				: body.tag;
 		}
 
-    try {
-      const review = await Review.update(
-        {
-          rating: body.rate,
-          content: desc,
-          tags: tags
-        },
-        { where: {
-          rv_id: body.rv_id}
-        }
-      );
-  
-      return res.json(review);
-    } catch(err) {
-      console.log('[error] review DB : ', err);
-      return res.redirect('/');
-    }
+    Review.update({
+      rating: body.rate,
+      content: desc,
+      tags: tags
+    },
+  {where: {id: body.rv_id} });
+
+  return res.redirect('/');
   },
 
   findAllByReviewId: async (req, res) => {
