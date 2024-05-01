@@ -41,6 +41,18 @@ module.exports = {
   return res.redirect('/');
   },
 
+  delete: async (req, res) => {
+    const rv_id = req.body.rv_id;
+    
+    try {
+      await Report.destroy({ where: {id: rv_id} });
+      return res.json({});
+    } catch (error) {
+      console.log('[error] review DB - delete : ', error);
+      return res.redirect('/');
+    }
+  },
+
   findAllByReviewId: async (req, res) => {
     const reviews = await Review.findAll({where: {id: req.params.rv_id} });
     
