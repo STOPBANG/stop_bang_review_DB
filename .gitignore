@@ -38,3 +38,4 @@ Temporary Items
 
 node_modules/
 database/config/config.json
+.env
