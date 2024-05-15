@@ -28,11 +28,22 @@ module.exports = class Review extends Sequelize.Model {
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: Sequelize.NOW,
+        get() {
+          // created_time 값을 원하는 형식으로 포맷팅하여 반환
+          const createdTime = this.getDataValue('created_time');
+          return createdTime ? createdTime.toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'}) : null;
+        }
       },
       updated_time: {
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: Sequelize.NOW,
+        get() {
+          // updated_time 값을 원하는 형식으로 포맷팅하여 반환
+          const updatedTime = this.getDataValue('updated_time');
+          return updatedTime ? new Date(updatedTime).toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'}) : null;
+
+        }
       },
     },
     {
