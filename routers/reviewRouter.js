@@ -8,6 +8,7 @@ router.post('/delete', reviewModel.delete);
 router.get('/findAllByReviewId/:rv_id', reviewModel.findAllByReviewId);
 router.get('/findAllByUserId/:user_id', reviewModel.findAllByUserId);
 router.get('/findAllByRegno/:ra_regno', reviewModel.findAllByRegno);
+router.get('/findAllByRegnoAndUserId/:sys_regno/:user_id', reviewModel.findAllByRegnoAndUserId);
 
 
 module.exports = router

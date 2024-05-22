@@ -68,5 +68,14 @@ module.exports = {
     const reviews = await Review.findAll({ where: {agentList_ra_regno: req.params.ra_regno} });
 
     return res.json(reviews);
-  }
+  },
+  findAllByRegnoAndUserId: async (req,res) => {
+    const reviews = await Review.findAll(
+      { where: 
+      { agentList_ra_regno: req.params.sys_regno,
+        resident_r_id: req.params.user_id }
+      });
+      
+      return res.json(reviews);
+  },
 }
