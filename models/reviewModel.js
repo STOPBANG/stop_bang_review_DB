@@ -54,9 +54,13 @@ module.exports = {
   },
 
   findAllByReviewId: async (req, res) => {
-    const reviews = await Review.findAll({where: {id: req.params.rv_id} });
-    
-    return res.json(reviews);
+    try {
+      const reviews = await Review.findAll({ where: { id: req.params.rv_id } });
+      return res.json(reviews);
+    } catch (error) {
+        console.error("Review 조회 중 에러:", error);
+        return res.status(500).json({ error: "서버에서 리뷰를 조회하는 중 에러가 발생했습니다." });
+    }
   },
 
   findAllByUserId: async (req, res) => {
