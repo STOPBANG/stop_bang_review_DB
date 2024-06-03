@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 const {sequelize} = require('./database/models/');
 sequelize.sync({force : false});
 
+const rabbitmq = require('./rabbitmq');
+rabbitmq.receiveConnection();
+
 const reviewRouter = require('./routers/reviewRouter.js');
 
 app.use('/db/review', reviewRouter);

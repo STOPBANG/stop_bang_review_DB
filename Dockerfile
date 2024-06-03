@@ -6,4 +6,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-CMD npm run start
+CMD npx wait-port rabbit:5672   && \
+    npm run start

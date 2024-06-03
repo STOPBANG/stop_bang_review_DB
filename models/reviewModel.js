@@ -3,18 +3,29 @@ const { tags } = require('../public/assets/tag');
 const Review = require('../database/models/tables/review');
 
 module.exports = {
-  create: async (req, res) => {
-    const body = req.body;
+  // create: async (req, res) => {
+  //   const body = req.body;
 
+  //   await Review.create({
+  //     resident_r_id: body.r_id,
+  //     agentList_ra_regno: body.ra_regno,
+  //     rating: body.rate,
+  //     content: body.description,
+  //     tags: Array.isArray(body.tag) ? body.tag.join("") : body.tag
+  //   });
+
+  //   return res.json({});
+  // },
+
+  // 리뷰 생성 - 간접메시징 
+  create: async (review) => {
     await Review.create({
-      resident_r_id: body.r_id,
-      agentList_ra_regno: body.ra_regno,
-      rating: body.rate,
-      content: body.description,
-      tags: Array.isArray(body.tag) ? body.tag.join("") : body.tag
+      resident_r_id: review.r_id,
+      agentList_ra_regno: review.sys_regno,
+      rating: review.rate,
+      content: review.description,
+      tags: Array.isArray(review.tag) ? review.tag.join("") : review.tag
     });
-
-    return res.json({});
   },
 
   update: async (req,res) => {
