@@ -1,9 +1,19 @@
 const amqp = require('amqplib');
 const reviewModel = require('./models/reviewModel.js');
 
+if (!process.env.RABBITMQ_HOST) {
+    throw new Error("Please specify the name of the RabbitMQ host using environment variable RABBIT");
+}
+
 module.exports = {
     receiveConnection: async () => {
-        amqp.connect(process.env.RABBIT).then(connection => {
+        amqp.connect({
+            protocol: 'amqp',
+            hostname: process.env.RABBITMQ_HOST,
+            username: process.env.RABBITMQ_ID,
+            password: process.env.RABBITMQ_PASSWORD,
+            port: process.env.RABBITMQ_PORT,
+        }).then(connection => {
         connection.createChannel().then(messageChannel => {
             const queue = 'reviewQueue';
 
